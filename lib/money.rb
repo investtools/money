@@ -1,0 +1,5 @@
+require 'money/base'
+require 'money/money'
+require 'money/attributes'
+require 'money/currency'
+require 'money/version'
