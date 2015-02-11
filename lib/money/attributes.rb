@@ -10,7 +10,7 @@ class Money
 
       def money(field_name)
         define_method(field_name) do
-          Money.new(super(), security.currency.code, date)
+          Money.new(super(), currency.code, date)
         end
         define_method("#{field_name}=") do |value|
           if value.kind_of?(Money)
