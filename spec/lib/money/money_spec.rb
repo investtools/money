@@ -25,6 +25,11 @@ describe Money do
         expect { Money.new(1_000.0, 'BRL') - 'TEST' }.to raise_error(TypeError)
       end
     end
+    context 'when the given value is in other currency' do
+      it 'converts the given amount before the operation' do
+        expect(Money.new(1_150.0, 'BRL') - Money.new(100.0, 'USD')).to eq Money.new(1_000.0, 'BRL')
+      end
+    end
   end
   describe '#/' do
     it 'divides the amount by the given value and returns a new object' do
@@ -40,6 +45,11 @@ describe Money do
         expect { Money.new(1_000.0, 'BRL') / 'TEST' }.to raise_error(TypeError)
       end
     end
+    context 'when the given value is in other currency' do
+      it 'converts the given amount before the operation' do
+        expect(Money.new(1_500.0, 'BRL') / Money.new(100.0, 'USD')).to eq Money.new(10.0, 'BRL')
+      end
+    end    
   end
   describe '#*' do
     it 'multiplies the amount by the given value and returns a new object' do
@@ -55,6 +65,11 @@ describe Money do
         expect { Money.new(1_000.0, 'BRL') * 'TEST' }.to raise_error(TypeError)
       end
     end
+    context 'when the given value is in other currency' do
+      it 'converts the given amount before the operation' do
+        expect(Money.new(1_000.0, 'BRL') * Money.new(1.0, 'USD')).to eq Money.new(1_500.0, 'BRL')
+      end
+    end     
   end
   describe '#+' do
     it 'adds the amount to the given value and returns a new object' do
@@ -70,6 +85,11 @@ describe Money do
         expect { Money.new(1_000.0, 'BRL') + 'TEST' }.to raise_error(TypeError)
       end
     end
+    context 'when the given value is in other currency' do
+      it 'converts the given amount before the operation' do
+        expect(Money.new(1_000.0, 'BRL') + Money.new(100.0, 'USD')).to eq Money.new(1_150.0, 'BRL')
+      end
+    end      
   end
   describe '#coerce' do
     it 'wraps first operator in a Money' do

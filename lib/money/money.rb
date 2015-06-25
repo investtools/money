@@ -46,7 +46,7 @@ class Money
   protected
 
   def calculate(operation, other)
-    other = other.amount if other.kind_of?(Money)
+    other = other.exchange_to(currency).amount if other.kind_of?(Money)
     if other.kind_of?(Numeric)
       Money.new(amount.send(operation, other), currency, date)
     else
