@@ -46,9 +46,17 @@ class Money
   protected
 
   def calculate(operation, other)
-    other = other.exchange_to(currency).amount if other.kind_of?(Money)
+    if other.kind_of?(Money)
+      if other.date != date and other.date != nil and date != nil
+        raise "Can't calculate the amount with different dates."
+      end 
+      new_date = date || other.date
+      other = other.exchange_to(currency).amount
+    else
+      new_date = date
+    end
     if other.kind_of?(Numeric)
-      Money.new(amount.send(operation, other), currency, date)
+      Money.new(amount.send(operation, other), currency, new_date)
     else
       raise TypeError, "#{other.class} can't be coerced into Money"
     end
